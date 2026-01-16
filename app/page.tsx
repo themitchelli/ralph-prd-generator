@@ -2,13 +2,53 @@
 
 import { useRouter } from 'next/navigation';
 import { useState, ChangeEvent } from 'react';
+import { WorkType, needsModeSelection } from '@/lib/types';
+
+const workTypes: { id: WorkType; title: string; description: string; icon: string }[] = [
+  {
+    id: 'new-project',
+    title: 'New Project',
+    description: 'Starting from scratch with a greenfield codebase',
+    icon: '🚀',
+  },
+  {
+    id: 'new-feature',
+    title: 'New Feature',
+    description: 'Adding new capability to an existing system',
+    icon: '✨',
+  },
+  {
+    id: 'enhancement',
+    title: 'Enhancement',
+    description: 'Improving or extending existing functionality',
+    icon: '📈',
+  },
+  {
+    id: 'spike',
+    title: 'Spike / Research',
+    description: 'Time-boxed exploration or learning',
+    icon: '🔬',
+  },
+  {
+    id: 'tech-debt',
+    title: 'Tech Debt',
+    description: 'Refactor, upgrade, or pay down technical debt',
+    icon: '🔧',
+  },
+];
 
 export default function Home() {
   const router = useRouter();
   const [showUpload, setShowUpload] = useState(false);
 
-  const handleStartNew = () => {
-    router.push('/chat');
+  const handleSelectWorkType = (workType: WorkType) => {
+    sessionStorage.setItem('workType', workType);
+
+    if (needsModeSelection(workType)) {
+      router.push('/mode');
+    } else {
+      router.push('/chat');
+    }
   };
 
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +57,6 @@ export default function Home() {
       const reader = new FileReader();
       reader.onload = (event) => {
         const content = event.target?.result as string;
-        // Store in session storage to pass to chat page
         sessionStorage.setItem('parkedPRD', content);
         router.push('/chat?resume=true');
       };
@@ -26,32 +65,42 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
-      <div className="max-w-2xl w-full">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4 py-8">
+      <div className="max-w-4xl w-full">
         <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Ralph PRD Generator
           </h1>
           <p className="text-lg text-gray-600 mb-8">
             A conversational tool that guides you through creating well-structured
-            Product Requirements Documents. Get clear on value, scope, and
-            user stories in about 15 minutes.
+            requirements documents. Choose your work type to get started.
           </p>
 
-          <div className="space-y-4">
-            <button
-              onClick={handleStartNew}
-              className="w-full bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
-            >
-              Start New PRD
-            </button>
+          {/* Work Type Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            {workTypes.map((type) => (
+              <button
+                key={type.id}
+                onClick={() => handleSelectWorkType(type.id)}
+                className="text-left p-6 rounded-xl border-2 border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition-all group"
+              >
+                <div className="text-3xl mb-3">{type.icon}</div>
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-700 mb-1">
+                  {type.title}
+                </h3>
+                <p className="text-sm text-gray-600">{type.description}</p>
+              </button>
+            ))}
+          </div>
 
+          {/* Resume Section */}
+          <div className="border-t border-gray-200 pt-6">
             {!showUpload ? (
               <button
                 onClick={() => setShowUpload(true)}
                 className="w-full bg-gray-100 text-gray-700 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-200 transition-colors"
               >
-                Continue Parked PRD
+                Continue Parked Session
               </button>
             ) : (
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
@@ -64,7 +113,7 @@ export default function Home() {
                   />
                   <div className="text-gray-600">
                     <div className="text-lg font-medium mb-2">
-                      Upload your parked PRD
+                      Upload your parked session
                     </div>
                     <div className="text-sm text-gray-500">
                       Click to select a file (.md, .json, or .txt)
@@ -73,30 +122,6 @@ export default function Home() {
                 </label>
               </div>
             )}
-          </div>
-
-          <div className="mt-8 pt-8 border-t border-gray-200">
-            <h2 className="text-sm font-semibold text-gray-700 mb-3">
-              How it works:
-            </h2>
-            <ol className="space-y-2 text-sm text-gray-600">
-              <li className="flex">
-                <span className="font-semibold text-blue-600 mr-2">1.</span>
-                <span>Answer questions about your feature&apos;s value and problem</span>
-              </li>
-              <li className="flex">
-                <span className="font-semibold text-blue-600 mr-2">2.</span>
-                <span>Define scope and boundaries</span>
-              </li>
-              <li className="flex">
-                <span className="font-semibold text-blue-600 mr-2">3.</span>
-                <span>Review and refine user stories</span>
-              </li>
-              <li className="flex">
-                <span className="font-semibold text-blue-600 mr-2">4.</span>
-                <span>Download your PRD in Markdown or JSON (Ralph-compatible)</span>
-              </li>
-            </ol>
           </div>
         </div>
 

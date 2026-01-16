@@ -1,20 +1,34 @@
-import { ConversationPhase } from '@/lib/types';
+import { ConversationPhase, FlowType } from '@/lib/types';
 
 interface ProgressIndicatorProps {
   phase: ConversationPhase;
+  flowType: FlowType;
 }
 
-const phases = [
-  { id: 'value', label: 'Phase 1: Value' },
-  { id: 'scope', label: 'Phase 2: Scope' },
-  { id: 'stories', label: 'Phase 3: Stories' },
-];
+const phasesByFlow: Record<FlowType, { id: string; label: string }[]> = {
+  feature: [
+    { id: 'value', label: 'Phase 1: Value' },
+    { id: 'scope', label: 'Phase 2: Scope' },
+    { id: 'stories', label: 'Phase 3: Stories' },
+  ],
+  spike: [
+    { id: 'hypothesis', label: 'Phase 1: Hypothesis' },
+    { id: 'questions', label: 'Phase 2: Questions' },
+    { id: 'boundaries', label: 'Phase 3: Boundaries' },
+  ],
+  'tech-debt': [
+    { id: 'current', label: 'Phase 1: Current State' },
+    { id: 'target', label: 'Phase 2: Target State' },
+    { id: 'migration', label: 'Phase 3: Migration' },
+  ],
+};
 
-export default function ProgressIndicator({ phase }: ProgressIndicatorProps) {
+export default function ProgressIndicator({ phase, flowType }: ProgressIndicatorProps) {
   if (phase === 'complete') {
     return null;
   }
 
+  const phases = phasesByFlow[flowType] || phasesByFlow.feature;
   const currentIndex = phases.findIndex((p) => p.id === phase);
 
   return (

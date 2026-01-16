@@ -1,4 +1,17 @@
-export type ConversationPhase = 'value' | 'scope' | 'stories' | 'complete';
+// Work type classification
+export type WorkType = 'new-project' | 'new-feature' | 'enhancement' | 'spike' | 'tech-debt';
+
+// Interview mode (only for feature flows)
+export type InterviewMode = 'quick' | 'standard';
+
+// Flow type derived from work type
+export type FlowType = 'feature' | 'spike' | 'tech-debt';
+
+// Conversation phases vary by flow type
+export type FeaturePhase = 'value' | 'scope' | 'stories' | 'complete';
+export type SpikePhase = 'hypothesis' | 'questions' | 'boundaries' | 'complete';
+export type TechDebtPhase = 'current' | 'target' | 'migration' | 'complete';
+export type ConversationPhase = FeaturePhase | SpikePhase | TechDebtPhase;
 
 export interface Message {
   role: 'user' | 'assistant';
@@ -29,20 +42,106 @@ export interface PRDMarkdown {
   }[];
   technicalNotes?: string;
   openQuestions?: string[];
+  contextDocs?: string[];
 }
 
 export interface PRDJson {
+  type: 'feature';
   project: string;
   branchName: string;
+  featureName: string;
   description: string;
+  problemStatement: string;
+  successMetrics: string[];
+  inScope: string[];
+  outOfScope: string[];
   userStories: UserStory[];
+  technicalNotes?: string;
+  openQuestions?: string[];
+  contextDocs?: string[];
+  parkedFeatures?: {
+    name: string;
+    description: string;
+  }[];
 }
+
+// Spike output types
+export interface SpikeMarkdown {
+  title: string;
+  hypothesis: string;
+  questions: string[];
+  timeBox: string;
+  expectedOutput: string;
+  decisionInforms: string;
+  contextDocs?: string[];
+}
+
+export interface SpikeJson {
+  type: 'spike';
+  title: string;
+  hypothesis: string;
+  questions: string[];
+  timeBox: string;
+  expectedOutput: string;
+  decisionInforms: string;
+  contextDocs?: string[];
+}
+
+// Tech Debt output types
+export interface TechDebtMarkdown {
+  title: string;
+  currentState: string;
+  targetState: string;
+  migrationApproach: string;
+  migrationSteps: string[];
+  validation: string;
+  risks: string[];
+  contextDocs?: string[];
+}
+
+export interface TechDebtJson {
+  type: 'techdebt';
+  title: string;
+  currentState: string;
+  targetState: string;
+  migrationApproach: string;
+  migrationSteps: string[];
+  validation: string;
+  risks: string[];
+  contextDocs?: string[];
+}
+
+// Union types for output
+export type OutputMarkdown = PRDMarkdown | SpikeMarkdown | TechDebtMarkdown;
+export type OutputJson = PRDJson | SpikeJson | TechDebtJson;
 
 export interface ChatSession {
   messages: Message[];
   phase: ConversationPhase;
+  workType: WorkType;
+  interviewMode?: InterviewMode;
+  flowType: FlowType;
   prdData?: {
-    markdown: PRDMarkdown;
-    json: PRDJson;
+    markdown: OutputMarkdown;
+    json: OutputJson;
   };
+}
+
+// Helper to determine flow type from work type
+export function getFlowType(workType: WorkType): FlowType {
+  switch (workType) {
+    case 'new-project':
+    case 'new-feature':
+    case 'enhancement':
+      return 'feature';
+    case 'spike':
+      return 'spike';
+    case 'tech-debt':
+      return 'tech-debt';
+  }
+}
+
+// Helper to check if work type needs mode selection
+export function needsModeSelection(workType: WorkType): boolean {
+  return ['new-project', 'new-feature', 'enhancement'].includes(workType);
 }
