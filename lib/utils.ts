@@ -211,11 +211,31 @@ export const downloadFile = (content: string, filename: string, type: string) =>
 };
 
 export const copyToClipboard = async (text: string): Promise<boolean> => {
+  // Try modern clipboard API first (requires HTTPS or localhost)
+  if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (err) {
+      console.error('Clipboard API failed:', err);
+    }
+  }
+
+  // Fallback for HTTP contexts using execCommand
   try {
-    await navigator.clipboard.writeText(text);
-    return true;
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    textarea.style.top = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    const success = document.execCommand('copy');
+    document.body.removeChild(textarea);
+    return success;
   } catch (err) {
-    console.error('Failed to copy:', err);
+    console.error('Fallback copy failed:', err);
     return false;
   }
 };
