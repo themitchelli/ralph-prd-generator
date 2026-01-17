@@ -6,6 +6,7 @@ import OutputTabs from '@/components/OutputTabs';
 import { kebabCase } from '@/lib/utils';
 import { FlowType } from '@/lib/types';
 import Navbar from '@/components/Navbar';
+import HelpModal from '@/components/HelpModal';
 
 const outputTitles: Record<FlowType, string> = {
   feature: 'Your PRD is Ready!',
@@ -27,6 +28,7 @@ export default function OutputPage() {
   const [json, setJson] = useState('');
   const [featureName, setFeatureName] = useState('feature');
   const [outputType, setOutputType] = useState<FlowType>('feature');
+  const [showHelpModal, setShowHelpModal] = useState(false);
 
   useEffect(() => {
     const mdContent = sessionStorage.getItem('prdMarkdown');
@@ -59,6 +61,10 @@ export default function OutputPage() {
     handleStartAnother();
   };
 
+  const handleHelpClick = () => {
+    setShowHelpModal(true);
+  };
+
   if (!markdown || !json) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -69,7 +75,8 @@ export default function OutputPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col">
-      <Navbar onHomeClick={handleHomeClick} />
+      <Navbar onHomeClick={handleHomeClick} onHelpClick={handleHelpClick} />
+      <HelpModal isOpen={showHelpModal} onClose={() => setShowHelpModal(false)} />
       <div className="flex-1">
         <div className="max-w-5xl mx-auto px-4 py-8">
           <div className="mb-8 text-center">

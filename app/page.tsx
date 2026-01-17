@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect, ChangeEvent, Suspense } from 'react';
 import { WorkType, needsModeSelection, ParkedSession } from '@/lib/types';
 import Navbar from '@/components/Navbar';
+import HelpModal from '@/components/HelpModal';
 
 const workTypes: { id: WorkType; title: string; description: string; icon: string }[] = [
   {
@@ -50,6 +51,7 @@ function HomeContent() {
   const [showUpload, setShowUpload] = useState(false);
   const [showParkedMessage, setShowParkedMessage] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [showHelpModal, setShowHelpModal] = useState(false);
 
   useEffect(() => {
     if (searchParams.get('parked') === 'true') {
@@ -102,9 +104,14 @@ function HomeContent() {
     // Already on home, no-op
   };
 
+  const handleHelpClick = () => {
+    setShowHelpModal(true);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col">
-      <Navbar onHomeClick={handleHomeClick} />
+      <Navbar onHomeClick={handleHomeClick} onHelpClick={handleHelpClick} />
+      <HelpModal isOpen={showHelpModal} onClose={() => setShowHelpModal(false)} />
       <div className="flex-1 flex items-center justify-center px-4 py-8">
         <div className="max-w-4xl w-full">
           <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">

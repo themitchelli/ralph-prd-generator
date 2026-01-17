@@ -7,6 +7,7 @@ import ChatInput from '@/components/ChatInput';
 import ProgressIndicator from '@/components/ProgressIndicator';
 import Navbar from '@/components/Navbar';
 import NavigationModal from '@/components/NavigationModal';
+import HelpModal from '@/components/HelpModal';
 import { Message, ConversationPhase, WorkType, InterviewMode, FlowType, getFlowType, ParkedSession } from '@/lib/types';
 import { formatMarkdownPRD, formatSpikeBrief, formatTechDebtBrief, formatBugReport, downloadFile, kebabCase } from '@/lib/utils';
 
@@ -39,6 +40,7 @@ function ChatPageContent() {
   const [interviewMode, setInterviewMode] = useState<InterviewMode | null>(null);
   const [flowType, setFlowType] = useState<FlowType>('feature');
   const [showNavigationModal, setShowNavigationModal] = useState(false);
+  const [showHelpModal, setShowHelpModal] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const initializedRef = useRef(false);
@@ -256,6 +258,10 @@ function ChatPageContent() {
     setShowNavigationModal(false);
   };
 
+  const handleHelpClick = () => {
+    setShowHelpModal(true);
+  };
+
   const handleRetry = () => {
     setError('');
     if (messages.length > 0) {
@@ -271,7 +277,8 @@ function ChatPageContent() {
 
   return (
     <div className="h-screen flex flex-col bg-gray-50">
-      <Navbar onHomeClick={handleHomeClick} />
+      <Navbar onHomeClick={handleHomeClick} onHelpClick={handleHelpClick} />
+      <HelpModal isOpen={showHelpModal} onClose={() => setShowHelpModal(false)} />
 
       {/* Sub-header with work type and Park It button */}
       <div className="bg-white border-b border-gray-200 px-6 py-3 flex justify-between items-center">

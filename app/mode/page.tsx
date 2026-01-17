@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { InterviewMode, WorkType } from '@/lib/types';
 import Navbar from '@/components/Navbar';
+import HelpModal from '@/components/HelpModal';
 
 const modes: { id: InterviewMode; title: string; description: string; duration: string }[] = [
   {
@@ -32,6 +33,7 @@ const workTypeLabels: Record<WorkType, string> = {
 export default function ModePage() {
   const router = useRouter();
   const [workType, setWorkType] = useState<WorkType | null>(null);
+  const [showHelpModal, setShowHelpModal] = useState(false);
 
   useEffect(() => {
     const storedWorkType = sessionStorage.getItem('workType') as WorkType | null;
@@ -52,6 +54,10 @@ export default function ModePage() {
     router.push('/');
   };
 
+  const handleHelpClick = () => {
+    setShowHelpModal(true);
+  };
+
   if (!workType) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
@@ -62,7 +68,8 @@ export default function ModePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col">
-      <Navbar onHomeClick={handleHomeClick} />
+      <Navbar onHomeClick={handleHomeClick} onHelpClick={handleHelpClick} />
+      <HelpModal isOpen={showHelpModal} onClose={() => setShowHelpModal(false)} />
       <div className="flex-1 flex items-center justify-center px-4">
         <div className="max-w-2xl w-full">
           <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
