@@ -60,19 +60,17 @@ export const formatMarkdownPRD = (data: PRDMarkdown): string => {
 export const formatSpikeBrief = (data: SpikeMarkdown): string => {
   let md = `# ${data.title}\n\n`;
 
-  md += `## Hypothesis\n${data.hypothesis}\n\n`;
+  md += `## Research Question\n${data.question}\n\n`;
 
-  md += `## Questions to Answer\n`;
-  data.questions.forEach(question => {
-    md += `- ${question}\n`;
+  md += `## Time Box\n${data.timeboxHours} hours\n\n`;
+
+  md += `## Success Criteria\n`;
+  data.successCriteria.forEach(criterion => {
+    md += `- ${criterion}\n`;
   });
   md += '\n';
 
-  md += `## Time Box\n${data.timeBox}\n\n`;
-
-  md += `## Expected Output\n${data.expectedOutput}\n\n`;
-
-  md += `## Decision This Informs\n${data.decisionInforms}\n\n`;
+  md += `## Output Artifact\n${data.outputArtifact}\n\n`;
 
   if (data.contextDocs && data.contextDocs.length > 0) {
     md += `## Supporting Materials\n`;

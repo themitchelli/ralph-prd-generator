@@ -69,22 +69,22 @@ export interface PRDJson {
 // Spike output types
 export interface SpikeMarkdown {
   title: string;
-  hypothesis: string;
-  questions: string[];
-  timeBox: string;
-  expectedOutput: string;
-  decisionInforms: string;
+  question: string;           // Singular research question
+  timeboxHours: number;       // Numeric hours
+  successCriteria: string[];  // What "done" looks like
+  outputArtifact: string;     // What will be produced
   contextDocs?: string[];
 }
 
 export interface SpikeJson {
   type: 'spike';
+  id: string;                 // e.g., "SPIKE-042"
+  branchName: string;         // e.g., "spike/SPIKE-042-evaluate-auth-libs"
   title: string;
-  hypothesis: string;
-  questions: string[];
-  timeBox: string;
-  expectedOutput: string;
-  decisionInforms: string;
+  question: string;
+  timeboxHours: number;
+  successCriteria: string[];
+  outputArtifact: string;
   contextDocs?: string[];
 }
 
