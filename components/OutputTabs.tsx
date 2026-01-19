@@ -52,7 +52,7 @@ export default function OutputTabs({ markdown, json, featureName }: OutputTabsPr
               : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
           }`}
         >
-          JSON (Ralph)
+          JSON (FADE)
         </button>
       </div>
 

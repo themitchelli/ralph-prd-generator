@@ -7,9 +7,9 @@ interface HelpModalProps {
   onClose: () => void;
 }
 
-const helpContent = `# Ralph PRD Generator Help
+const helpContent = `# FADE PRD Generator Help
 
-Welcome to the Ralph PRD Generator. This guide will help you understand how to use the tool effectively.
+Welcome to the FADE PRD Generator. This guide will help you understand how to use the tool effectively.
 
 ---
 
@@ -20,32 +20,32 @@ Choose the work type that best matches what you're trying to document:
 ### New Project
 **Use when:** Starting a completely new product, application, or system from scratch.
 
-**Conversation style:** Ralph will guide you through establishing the project's core value proposition, defining its scope, and breaking down the initial feature set into user stories. Expect questions about target users, business goals, and success criteria.
+**Conversation style:** FADE will guide you through establishing the project's core value proposition, defining its scope, and breaking down the initial feature set into user stories. Expect questions about target users, business goals, and success criteria.
 
 ### New Feature
 **Use when:** Adding significant new functionality to an existing product.
 
-**Conversation style:** Ralph will explore the problem you're solving, who benefits, and how this feature fits into the existing product. You'll define clear boundaries and create prioritized user stories with acceptance criteria.
+**Conversation style:** FADE will explore the problem you're solving, who benefits, and how this feature fits into the existing product. You'll define clear boundaries and create prioritized user stories with acceptance criteria.
 
 ### Enhancement
 **Use when:** Improving or extending existing functionality.
 
-**Conversation style:** Ralph will ask about current limitations, what improvement you want to see, and how users will benefit. The scope discussion focuses on what changes vs. what stays the same.
+**Conversation style:** FADE will ask about current limitations, what improvement you want to see, and how users will benefit. The scope discussion focuses on what changes vs. what stays the same.
 
 ### Spike
 **Use when:** You need to research or investigate something before committing to implementation.
 
-**Conversation style:** Ralph helps you articulate a clear hypothesis, define the questions you need answered, and set time boundaries for your investigation. The output is a research brief, not a PRD.
+**Conversation style:** FADE helps you articulate a clear hypothesis, define the questions you need answered, and set time boundaries for your investigation. The output is a research brief, not a PRD.
 
 ### Tech Debt
 **Use when:** Documenting technical migrations, refactoring, or infrastructure improvements.
 
-**Conversation style:** Ralph will guide you through describing the current state, defining the target state, and planning the migration approach. Focus is on technical accuracy and risk identification.
+**Conversation style:** FADE will guide you through describing the current state, defining the target state, and planning the migration approach. Focus is on technical accuracy and risk identification.
 
 ### Bug Report
 **Use when:** Documenting a bug that needs to be fixed.
 
-**Conversation style:** Ralph conducts a three-phase interview: first establishing what's broken, then gathering evidence (URLs, stack traces, screenshots), and finally clarifying expected vs. actual behavior.
+**Conversation style:** FADE conducts a three-phase interview: first establishing what's broken, then gathering evidence (URLs, stack traces, screenshots), and finally clarifying expected vs. actual behavior.
 
 ---
 
@@ -56,12 +56,12 @@ For Project, Feature, and Enhancement work types, you'll choose a conversation m
 ### Standard Mode
 **Best for:** First-time users, complex features, or when you want thorough documentation.
 
-**What to expect:** Ralph asks more questions and explores edge cases. This results in more comprehensive PRDs with detailed acceptance criteria. The conversation takes longer but produces more complete documentation.
+**What to expect:** FADE asks more questions and explores edge cases. This results in more comprehensive PRDs with detailed acceptance criteria. The conversation takes longer but produces more complete documentation.
 
 ### Quick Mode
 **Best for:** Experienced users, simple features, or when you already have clear requirements.
 
-**What to expect:** Ralph asks fewer questions and moves faster through the phases. You'll get a complete PRD, but with less back-and-forth exploration. Ideal when you know exactly what you want.
+**What to expect:** FADE asks fewer questions and moves faster through the phases. You'll get a complete PRD, but with less back-and-forth exploration. Ideal when you know exactly what you want.
 
 ---
 
@@ -133,7 +133,7 @@ When your conversation completes, you'll receive two formats of output:
 ## Tips for Best Results
 
 - **Be specific** when answering questions - vague answers lead to vague PRDs
-- **Don't skip context** - if Ralph asks about related systems or dependencies, provide details
+- **Don't skip context** - if FADE asks about related systems or dependencies, provide details
 - **Review user stories carefully** - these become the implementation checklist
 - **Use the standard mode** your first few times to learn what makes a complete PRD
 - **Park complex conversations** rather than rushing through them

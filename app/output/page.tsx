@@ -116,12 +116,12 @@ export default function OutputPage() {
                   <span>
                     Use the <strong>JSON version</strong> with{' '}
                     <a
-                      href="https://github.com/snarktank/ralph"
+                      href="https://github.com/themitchelli/fade"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      Ralph
+                      FADE
                     </a>{' '}
                     for autonomous implementation
                   </span>

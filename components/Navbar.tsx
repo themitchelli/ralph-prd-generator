@@ -34,7 +34,7 @@ export default function Navbar({ onHomeClick, onHelpClick }: NavbarProps) {
           <span className="font-medium">Home</span>
         </button>
         <div className="flex-1" />
-        <span className="text-sm text-gray-500">Ralph PRD Generator</span>
+        <span className="text-sm text-gray-500">FADE PRD Generator</span>
         <button
           onClick={onHelpClick}
           className="ml-4 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors"

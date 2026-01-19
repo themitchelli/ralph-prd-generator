@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Ralph PRD Generator",
+  title: "FADE PRD Generator",
   description: "Generate well-structured PRDs with AI guidance",
   robots: "noindex, nofollow",
 };

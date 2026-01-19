@@ -124,7 +124,7 @@ function HomeContent() {
             )}
 
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Ralph PRD Generator
+              FADE PRD Generator
             </h1>
             <p className="text-lg text-gray-600 mb-8">
               A conversational tool that guides you through creating well-structured
@@ -184,14 +184,14 @@ function HomeContent() {
           <div className="text-center mt-6 text-sm text-gray-600">
             Compatible with{' '}
             <a
-              href="https://github.com/snarktank/ralph"
+              href="https://github.com/themitchelli/fade"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 hover:underline"
             >
-              Ralph
+              FADE
             </a>
-            , the autonomous AI agent loop
+            , the Framework for Agentic Development and Engineering
           </div>
         </div>
       </div>
