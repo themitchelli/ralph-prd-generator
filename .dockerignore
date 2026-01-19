@@ -33,6 +33,9 @@ FADE.md
 # Skills (not needed in container)
 skills/
 
+# Deploy configs (not needed in container)
+deploy/
+
 # Docker
 Dockerfile*
 docker-compose*

@@ -1,0 +1,20 @@
+# Caddyfile for PRD Generator
+# Add this block to the Pi's existing Caddyfile
+#
+# Prerequisites:
+# - DNS configured: prd-generator.ddns.net pointing to Pi's public IP
+# - Port 443 open on router, forwarded to Pi
+# - prd-generator container running on port 3001
+
+prd-generator.ddns.net {
+    reverse_proxy localhost:3001
+
+    # Optional: Enable compression
+    encode gzip
+
+    # Logging (adjust path as needed)
+    log {
+        output file /var/log/caddy/prd-generator.log
+        format json
+    }
+}

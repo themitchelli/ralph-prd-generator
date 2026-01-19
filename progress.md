@@ -97,3 +97,13 @@ For blocked stories, use:
 - Added healthcheck for container monitoring
 - Files changed: docker-compose.yml
 - Tests: N/A (deployment config)
+
+## 2026-01-19 19:15 - FEAT-008 US-003: Configure Caddy reverse proxy - COMPLETE
+
+- Created deploy/ directory with Caddy configuration
+- Caddyfile configures prd-generator.ddns.net → localhost:3001
+- HTTPS automatic via Caddy's built-in Let's Encrypt
+- Added deploy/README.md with setup instructions
+- Updated .dockerignore to exclude deploy/
+- Files changed: deploy/Caddyfile, deploy/README.md, .dockerignore
+- Tests: N/A (deployment config, requires Pi to verify)
