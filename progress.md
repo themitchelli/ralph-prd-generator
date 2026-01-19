@@ -31,3 +31,12 @@ For blocked stories, use:
 - Updated OutputTabs JSON tab label to "JSON (FADE)"
 - Files changed: app/layout.tsx, app/page.tsx, app/output/page.tsx, components/Navbar.tsx, components/HelpModal.tsx, components/OutputTabs.tsx
 - Tests: npm run build passed
+
+## 2026-01-19 10:45 - US-002: Update output filename convention - COMPLETE
+
+- Updated filename format from `prd-{slug}.json` to `{TYPE}-XXX-{slug}.json`
+- Added workType prop to OutputTabs component
+- Created workTypeToPrefix mapping: new-project/new-feature→FEAT, enhancement→ENH, spike→SPIKE, tech-debt→CHORE, bug→BUG
+- Updated output page to read and pass workType from sessionStorage
+- Files changed: components/OutputTabs.tsx, app/output/page.tsx
+- Tests: npm run build passed

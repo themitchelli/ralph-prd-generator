@@ -3,14 +3,26 @@
 import { useState } from 'react';
 import MarkdownPreview from './MarkdownPreview';
 import { copyToClipboard, downloadFile } from '@/lib/utils';
+import { WorkType } from '@/lib/types';
+
+// Map work types to FADE filename prefixes
+const workTypeToPrefix: Record<WorkType, string> = {
+  'new-project': 'FEAT',
+  'new-feature': 'FEAT',
+  'enhancement': 'ENH',
+  'spike': 'SPIKE',
+  'tech-debt': 'CHORE',
+  'bug': 'BUG',
+};
 
 interface OutputTabsProps {
   markdown: string;
   json: string;
   featureName: string;
+  workType: WorkType;
 }
 
-export default function OutputTabs({ markdown, json, featureName }: OutputTabsProps) {
+export default function OutputTabs({ markdown, json, featureName, workType }: OutputTabsProps) {
   const [activeTab, setActiveTab] = useState<'markdown' | 'json'>('markdown');
   const [copyStatus, setCopyStatus] = useState<string>('');
 
@@ -26,7 +38,8 @@ export default function OutputTabs({ markdown, json, featureName }: OutputTabsPr
   };
 
   const handleDownload = (content: string, extension: string, type: string) => {
-    const filename = `prd-${featureName}.${extension}`;
+    const prefix = workTypeToPrefix[workType];
+    const filename = `${prefix}-XXX-${featureName}.${extension}`;
     downloadFile(content, filename, type);
   };
 

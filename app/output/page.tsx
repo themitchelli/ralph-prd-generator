@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import OutputTabs from '@/components/OutputTabs';
 import { kebabCase } from '@/lib/utils';
-import { FlowType } from '@/lib/types';
+import { FlowType, WorkType } from '@/lib/types';
 import Navbar from '@/components/Navbar';
 import HelpModal from '@/components/HelpModal';
 
@@ -28,6 +28,7 @@ export default function OutputPage() {
   const [json, setJson] = useState('');
   const [featureName, setFeatureName] = useState('feature');
   const [outputType, setOutputType] = useState<FlowType>('feature');
+  const [workType, setWorkType] = useState<WorkType>('new-feature');
   const [showHelpModal, setShowHelpModal] = useState(false);
 
   useEffect(() => {
@@ -35,6 +36,7 @@ export default function OutputPage() {
     const jsonContent = sessionStorage.getItem('prdJson');
     const name = sessionStorage.getItem('prdFeatureName');
     const type = sessionStorage.getItem('outputType') as FlowType | null;
+    const storedWorkType = sessionStorage.getItem('workType') as WorkType | null;
 
     if (!mdContent || !jsonContent) {
       router.push('/');
@@ -45,6 +47,7 @@ export default function OutputPage() {
     setJson(jsonContent);
     setFeatureName(kebabCase(name || 'document'));
     setOutputType(type || 'feature');
+    setWorkType(storedWorkType || 'new-feature');
   }, [router]);
 
   const handleStartAnother = () => {
@@ -88,7 +91,7 @@ export default function OutputPage() {
             </p>
           </div>
 
-          <OutputTabs markdown={markdown} json={json} featureName={featureName} />
+          <OutputTabs markdown={markdown} json={json} featureName={featureName} workType={workType} />
 
           <div className="mt-8 text-center">
             <button
