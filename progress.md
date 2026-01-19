@@ -86,3 +86,14 @@ For blocked stories, use:
 - Exposes port 3000
 - Files changed: Dockerfile, .dockerignore, next.config.mjs
 - Tests: npm run build passed, standalone output verified
+
+## 2026-01-19 19:12 - FEAT-008 US-002: Create docker-compose.yml for Pi deployment - COMPLETE
+
+- Created docker-compose.yml with prd-generator service
+- Service name: prd-generator
+- Port mapping: 3001:3000 (host:container)
+- Restart policy: unless-stopped
+- Environment: ANTHROPIC_API_KEY passed from host environment
+- Added healthcheck for container monitoring
+- Files changed: docker-compose.yml
+- Tests: N/A (deployment config)

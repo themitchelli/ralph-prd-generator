@@ -1,0 +1,17 @@
+services:
+  prd-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prd-generator
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
